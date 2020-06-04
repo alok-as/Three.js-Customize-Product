@@ -1,0 +1,121 @@
+/* Importing the Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+/* BASIC RESET */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.6;
+	box-sizing: border-box;
+	height: 100vh;
+	overflow: hidden;
+}
+
+canvas {
+	display: block;
+}
+
+/* HEADER */
+.header {
+	background: linear-gradient(90deg, #00c4cc, #7d2ae8);
+	display: flex;
+	justify-content: space-between;
+	padding: 2rem 2rem;
+	height: 10vh;
+	color: white;
+}
+
+.logo {
+	font-weight: 700;
+}
+
+.logo span {
+	font-weight: 400;
+}
+.reset-info span {
+	color: black;
+	font-weight: 700;
+	margin: 0 1rem;
+}
+.container {
+	height: 90vh;
+	display: flex;
+}
+/*SIDEBAR */
+.textures {
+	background-color: #0e1318;
+	color: white;
+	flex-basis: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.textures img,
+.customize .option {
+	width: 5rem;
+	height: 5rem;
+	transition: all 0.2s ease;
+}
+
+.textures img:hover,
+.customize .option:hover {
+	transform: translateX(4px);
+}
+
+.main-area {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #edf0f2;
+}
+
+.stage {
+	width: 50%;
+	height: 60%;
+}
+
+.customize {
+	background-color: #0e1318;
+	flex-basis: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.customize img {
+	width: 100%;
+	height: 100%;
+}
+
+.active {
+	background-color: #fff;
+}
+
+@media (max-width: 700px) {
+	.subtitle,
+	.reset-info {
+		display: none;
+	}
+
+	.textures,
+	.customize {
+		flex-basis: 10%;
+	}
+}

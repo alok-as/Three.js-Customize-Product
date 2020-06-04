@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Customizable Product</title>
+		<link rel="stylesheet" href="./style/style.css" />
+	</head>
+	<body>
+		<header class="header">
+			<div class="logo">Customize<span>Product</span></div>
+			<div class="reset-info">
+				Press &laquo;<span>Space</span>&raquo; to Reset Settings
+			</div>
+			<div class="subtitle">Using Three.js Library</div>
+		</header>
+		<div class="container">
+			<aside class="textures">
+				<img data-value="1" src="./images/texture1.jpeg" alt="Texture 1" />
+				<img data-value="2" src="./images/texture2.jpeg" alt="Texture 2" />
+				<img data-value="3" src="./images/texture3.jpeg" alt="Texture 3" />
+				<img data-value="4" src="./images/texture4.jpeg" alt="Texture 4" />
+				<img data-value="5" src="./images/texture5.jpeg" alt="Texture 5" />
+				<img data-value="6" src="./images/texture6.jpeg" alt="Texture 6" />
+			</aside>
+			<div class="main-area">
+				<div class="stage"></div>
+			</div>
+			<aside class="customize">
+				<div class="option active" data-value="legs">
+					<img src="./images/legs.svg" alt="Chair legs" />
+				</div>
+				<div class="option" data-value="cushions">
+					<img src="./images/cushions.svg" alt="Chair cushions" />
+				</div>
+				<div class="option" data-value="base">
+					<img src="./images/base.svg" alt="Chair base" />
+				</div>
+				<div class="option" data-value="supports">
+					<img src="./images/supports.svg" alt="Chair supports" />
+				</div>
+				<div class="option" data-value="back">
+					<img src="./images/back.svg" alt="Chair back" />
+				</div>
+			</aside>
+		</div>
+
+		<script src="./js/three.min.js"></script>
+		<script src="./js/OrbitControls.js"></script>
+		<script src="./js/GLTFLoader.js"></script>
+		<script src="./js/index.js"></script>
+	</body>
+</html>
