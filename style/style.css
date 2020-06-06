@@ -26,6 +26,7 @@ body {
 
 canvas {
 	display: block;
+	outline: none;
 }
 
 /* HEADER */
@@ -54,29 +55,116 @@ canvas {
 	height: 90vh;
 	display: flex;
 }
-/*SIDEBAR */
-.textures {
-	background-color: #0e1318;
-	color: white;
-	flex-basis: 5%;
+
+/*CUSTOMIZE OPTIONS*/
+.customize {
+	flex-basis: 35%;
+	background-color: #293039;
 	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+}
+
+.customize-options {
+	display: flex;
+	justify-content: flex-end;
 	align-items: center;
 }
 
-.textures img,
-.customize .option {
+.customize-options,
+.materials {
+	height: 5rem;
+}
+
+.customize-items {
+	flex-grow: 1;
+}
+.customize-item {
+	border-bottom: 1px solid transparent;
+}
+
+.materials {
+	opacity: 0;
+	pointer-events: none;
+	display: flex;
+	color: white;
+	justify-content: space-evenly;
+	align-items: center;
+	border: 1px solid #fff;
+	transition: all 0.3s ease;
+}
+
+.materials div {
+	cursor: pointer;
+}
+
+.materials div:hover {
+	color: orangered;
+}
+
+.item-name {
+	margin-right: auto;
+	margin-left: 2px;
+	color: white;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.item-add,
+.item-remove {
+	border: none;
+	outline: none;
+	color: #fff;
+	font-family: "Montserrat", sans-serif;
+	padding: 0 1rem;
+	align-self: stretch;
+	text-transform: uppercase;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.item-add {
+	background-color: yellowgreen;
+}
+
+.item-remove {
+	background-color: orangered;
+}
+
+.sidebar {
+	background-color: #0e1318;
+	display: flex;
+	flex-direction: column;
+}
+
+.textures {
+	display: flex;
+	flex-direction: column;
+}
+
+.textures img {
 	width: 5rem;
 	height: 5rem;
+	border: 1px solid transparent;
 	transition: all 0.2s ease;
 }
 
 .textures img:hover,
-.customize .option:hover {
-	transform: translateX(4px);
+.textures img:focus {
+	border: 1px solid #fff;
 }
 
+.chair-parts {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+}
+.chair-parts .option {
+	width: 5rem;
+	height: 5rem;
+}
+
+.chair-parts .option:not(:last-child) {
+	margin-bottom: 0.8rem;
+}
 .main-area {
 	flex-grow: 1;
 	display: flex;
@@ -90,32 +178,11 @@ canvas {
 	height: 60%;
 }
 
-.customize {
-	background-color: #0e1318;
-	flex-basis: 5%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.customize img {
-	width: 100%;
-	height: 100%;
-}
-
 .active {
 	background-color: #fff;
 }
 
-@media (max-width: 700px) {
-	.subtitle,
-	.reset-info {
-		display: none;
-	}
-
-	.textures,
-	.customize {
-		flex-basis: 10%;
-	}
+.visible {
+	opacity: 1;
+	pointer-events: all;
 }

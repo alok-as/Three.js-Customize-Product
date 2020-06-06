@@ -1,7 +1,11 @@
 // DOM Selections
 const stage = document.querySelector(".stage");
+const cushionMaterials = document.querySelector(".materials-cushion");
+const carpetMaterials = document.querySelector(".materials-carpet");
+const modelHandle = document.querySelectorAll(".model-handle");
 const textureInputs = document.querySelectorAll(".textures img");
-const customizeInputs = document.querySelectorAll(".customize .option");
+const materials = document.querySelectorAll(".materials div");
+const chairPartInput = document.querySelectorAll(".chair-parts .option");
 
 let scene,
 	camera,
@@ -11,9 +15,11 @@ let scene,
 	texture,
 	cube,
 	controls,
-	rayCast,
 	loader,
 	model,
+	cushion,
+	carpet,
+	group,
 	selectedOption = "legs";
 
 //Setting all textures
@@ -30,6 +36,7 @@ const allTextures = {
 
 //Importing the 3d model
 const modelPath = "./images/chair.glb";
+// const cushionPath = "./images/scene.gltf";
 
 //Setting up inital Texture and Material
 const initialTexture = new THREE.TextureLoader().load(allTextures["default"]);
@@ -44,7 +51,8 @@ let objectSpecs = [
 	{ name: "supports", material: initialMaterial },
 ];
 
-const loadModel = () => {
+//Model Loaders
+const chairLoader = () => {
 	loader = new THREE.GLTFLoader();
 	loader.load(modelPath, (gltf) => {
 		model = gltf.scene;
@@ -54,7 +62,8 @@ const loadModel = () => {
 		for (let part of objectSpecs) {
 			setTexture(model, part.name, part.material);
 		}
-		scene.add(model);
+		group.add(model);
+		scene.add(group);
 	}),
 		undefined,
 		(error) => {
@@ -62,10 +71,109 @@ const loadModel = () => {
 		};
 };
 
+const modelHandler = (event) => {
+	console.log(event.target);
+	const [model, action] = event.target.dataset.value.split("-");
+	if (action === "add") {
+		model === "cushion" ? cushionLoader() : carpetLoader();
+	} else {
+		model === "cushion" ? cushionUnloader() : carpetUnloader();
+	}
+};
+
+const cushionLoader = () => {
+	if (!scene.getObjectByName("cushion")) {
+		cushionMaterials.classList.add("visible");
+		geometry = new THREE.BoxGeometry(2, 2, 2);
+		texture = new THREE.TextureLoader().load(allTextures["default"]);
+		material = new THREE.MeshBasicMaterial({ map: texture });
+		cushion = new THREE.Mesh(geometry, material);
+		cushion.position.y = 1.5;
+		cushion.position.x = 0.2;
+		cushion.rotation.y = 15;
+		cushion.name = "cushion";
+		group.add(cushion);
+	}
+};
+
+const carpetLoader = () => {
+	if (!scene.getObjectByName("carpet")) {
+		carpetMaterials.classList.add("visible");
+		geometry = new THREE.PlaneGeometry(14, 12, 20, 20);
+		texture = new THREE.TextureLoader().load(allTextures[5]);
+		material = new THREE.MeshBasicMaterial({
+			map: texture,
+			side: THREE.DoubleSide,
+		});
+		carpet = new THREE.Mesh(geometry, material);
+		carpet.rotation.x = Math.PI / 2;
+		carpet.position.y = -3;
+		carpet.position.z = -1;
+		carpet.name = "carpet";
+		group.add(carpet);
+	}
+};
+
+// Model Unloaders
+const cushionUnloader = () => {
+	if (group.getObjectByName("cushion")) {
+		cushionMaterials.classList.remove("visible");
+		group.remove(cushion);
+	}
+};
+
+const carpetUnloader = () => {
+	if (group.getObjectByName("carpet")) {
+		carpetMaterials.classList.remove("visible");
+		group.remove(carpet);
+	}
+};
+
+//Switch Geometries
+const switchGeometry = (event) => {
+	const switchInfo = event.target.dataset.value;
+	let [model, material] = switchInfo.split(" ");
+	let shape = group.getObjectByName(model);
+	material = parseInt(material, 10);
+	if (model === "carpet") {
+		shape.material.map = new THREE.TextureLoader().load(allTextures[material]);
+	} else {
+		cushionChange(shape, material);
+	}
+	group.add(shape);
+};
+
+const cushionChange = (shape, material) => {
+	switch (material) {
+		case 1:
+			shape.geometry = new THREE.SphereGeometry(2, 3, 4);
+			shape.material.map = new THREE.TextureLoader().load(allTextures["1"]);
+			break;
+		case 2:
+			shape.geometry = new THREE.BoxGeometry(2, 2, 2);
+			shape.material.map = new THREE.TextureLoader().load(allTextures["2"]);
+			break;
+		case 3:
+			shape.geometry = new THREE.SphereGeometry(2, 3, 4);
+			shape.material.map = new THREE.TextureLoader().load(allTextures["3"]);
+			break;
+		case 4:
+			shape.geometry = new THREE.BoxGeometry(2, 2, 2);
+			shape.material.map = new THREE.TextureLoader().load(allTextures["4"]);
+			break;
+		case 5:
+			shape.geometry = new THREE.SphereGeometry(2, 3, 4);
+			shape.material.map = new THREE.TextureLoader().load(allTextures["5"]);
+			break;
+	}
+	group.add(shape);
+};
+
 //Setting Selected Option
 setInputOption = (option) => {
 	selectedOption = option.dataset.value;
-	customizeInputs.forEach((input) => {
+	console.log(selectedOption);
+	chairPartInput.forEach((input) => {
 		input.classList.remove("active");
 	});
 	option.classList.add("active");
@@ -99,7 +207,7 @@ const init = () => {
 		1,
 		1000
 	);
-	camera.position.z = 10;
+	camera.position.z = 12;
 
 	//Rendering the scene and camera
 	renderer = new THREE.WebGLRenderer();
@@ -110,26 +218,40 @@ const init = () => {
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.update();
 
+	//Creating a New Group
+	group = new THREE.Group();
+
 	//Adding a new 3D Model
-	loadModel();
+	chairLoader();
 
 	textureInputs.forEach((input) => {
 		input.addEventListener("click", (event) => {
-			console.log(event.target.dataset.value);
 			createNewTexture(event.target.dataset.value);
 		});
 	});
 
-	customizeInputs.forEach((input) => {
+	chairPartInput.forEach((input) => {
 		input.addEventListener("click", (event) => {
 			setInputOption(event.target.closest(".option"));
 		});
+	});
+
+	//Handling Addition or Removal of models-cushions,carpets
+	modelHandle.forEach((model) => {
+		model.addEventListener("click", modelHandler);
+	});
+
+	//Switching Geometry
+	materials.forEach((material) => {
+		material.addEventListener("click", switchGeometry);
 	});
 
 	document.addEventListener("keypress", () => {
 		if (event.keyCode === 32) {
 			for (let part of objectSpecs) {
 				setTexture(model, part.name, part.material);
+				cushionUnloader();
+				carpetUnloader();
 			}
 		}
 	});

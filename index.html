@@ -15,34 +15,119 @@
 			<div class="subtitle">Using Three.js Library</div>
 		</header>
 		<div class="container">
-			<aside class="textures">
-				<img data-value="1" src="./images/texture1.jpeg" alt="Texture 1" />
-				<img data-value="2" src="./images/texture2.jpeg" alt="Texture 2" />
-				<img data-value="3" src="./images/texture3.jpeg" alt="Texture 3" />
-				<img data-value="4" src="./images/texture4.jpeg" alt="Texture 4" />
-				<img data-value="5" src="./images/texture5.jpeg" alt="Texture 5" />
-				<img data-value="6" src="./images/texture6.jpeg" alt="Texture 6" />
-			</aside>
+			<div class="customize">
+				<div class="sidebar">
+					<aside class="textures">
+						<img
+							tabindex="1"
+							data-value="1"
+							src="./images/texture1.jpeg"
+							alt="Texture 1"
+						/>
+						<img
+							tabindex="1"
+							data-value="2"
+							src="./images/texture2.jpeg"
+							alt="Texture 2"
+						/>
+						<img
+							tabindex="1"
+							data-value="3"
+							src="./images/texture3.jpeg"
+							alt="Texture 3"
+						/>
+						<img
+							tabindex="1"
+							data-value="4"
+							src="./images/texture4.jpeg"
+							alt="Texture 4"
+						/>
+						<img
+							tabindex="1"
+							data-value="5"
+							src="./images/texture5.jpeg"
+							alt="Texture 5"
+						/>
+						<img
+							tabindex="1"
+							data-value="6"
+							src="./images/texture6.jpeg"
+							alt="Texture 6"
+						/>
+					</aside>
+					<aside class="chair-parts">
+						<div class="option active" data-value="legs">
+							<img src="./images/legs.svg" alt="Chair legs" />
+						</div>
+						<div class="option" data-value="cushions">
+							<img src="./images/cushions.svg" alt="Chair cushions" />
+						</div>
+						<div class="option" data-value="supports">
+							<img src="./images/supports.svg" alt="Chair supports" />
+						</div>
+						<div class="option" data-value="back">
+							<img src="./images/back.svg" alt="Chair back" />
+						</div>
+						<div class="option" data-value="base">
+							<img src="./images/base.svg" alt="Chair base" />
+						</div>
+					</aside>
+				</div>
+
+				<div class="customize-items">
+					<div class="customize-item">
+						<div class="customize-options">
+							<h3 class="item-name">Cushions</h3>
+							<button
+								class="item-add cushion-add model-handle"
+								data-value="cushion-add"
+							>
+								Attach
+							</button>
+							<button
+								class="item-remove cushion-remove model-handle"
+								data-value="cushion-remove"
+							>
+								Remove
+							</button>
+						</div>
+						<div class="materials materials-cushion">
+							<div data-value="cushion 1">Type 1</div>
+							<div data-value="cushion 2">Type 2</div>
+							<div data-value="cushion 3">Type 3</div>
+							<div data-value="cushion 4">Type 4</div>
+							<div data-value="cushion 5">Type 5</div>
+						</div>
+					</div>
+					<div class="customize-item">
+						<div class="customize-options">
+							<h3 class="item-name">Carpets</h3>
+							<button
+								class="item-add carpet-add model-handle"
+								data-value="carpet-add"
+							>
+								Attach
+							</button>
+							<button
+								class="item-remove carpet-remove model-handle"
+								data-value="carpet-remove"
+							>
+								Remove
+							</button>
+						</div>
+						<div class="materials materials-carpet">
+							<div data-value="carpet 1">Type 1</div>
+							<div data-value="carpet 2">Type 2</div>
+							<div data-value="carpet 3">Type 3</div>
+							<div data-value="carpet 4">Type 4</div>
+							<div data-value="carpet 5">Type 5</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="main-area">
 				<div class="stage"></div>
 			</div>
-			<aside class="customize">
-				<div class="option active" data-value="legs">
-					<img src="./images/legs.svg" alt="Chair legs" />
-				</div>
-				<div class="option" data-value="cushions">
-					<img src="./images/cushions.svg" alt="Chair cushions" />
-				</div>
-				<div class="option" data-value="base">
-					<img src="./images/base.svg" alt="Chair base" />
-				</div>
-				<div class="option" data-value="supports">
-					<img src="./images/supports.svg" alt="Chair supports" />
-				</div>
-				<div class="option" data-value="back">
-					<img src="./images/back.svg" alt="Chair back" />
-				</div>
-			</aside>
 		</div>
 
 		<script src="./js/three.min.js"></script>
