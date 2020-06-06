@@ -5,7 +5,8 @@ const carpetMaterials = document.querySelector(".materials-carpet");
 const modelHandle = document.querySelectorAll(".model-handle");
 const textureInputs = document.querySelectorAll(".textures img");
 const materials = document.querySelectorAll(".materials div");
-const chairPartInput = document.querySelectorAll(".chair-parts .option");
+// const chairPartInput = document.querySelectorAll(".chair-parts .option");
+const chairPartInput = document.querySelectorAll(".chair-parts-list div");
 
 let scene,
 	camera,
@@ -30,13 +31,17 @@ const allTextures = {
 	4: "https://images.pexels.com/photos/989946/pexels-photo-989946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 	5: "https://images.pexels.com/photos/131634/pexels-photo-131634.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 	6: "https://images.pexels.com/photos/3695378/pexels-photo-3695378.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+	7: "https://images.pexels.com/photos/276514/pexels-photo-276514.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+	8: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+	9: "https://images.pexels.com/photos/4405250/pexels-photo-4405250.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+	10: "https://images.pexels.com/photos/1724888/pexels-photo-1724888.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+	11: "https://images.pexels.com/photos/3894157/pexels-photo-3894157.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 	default:
 		"https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 };
 
 //Importing the 3d model
 const modelPath = "./images/chair.glb";
-// const cushionPath = "./images/scene.gltf";
 
 //Setting up inital Texture and Material
 const initialTexture = new THREE.TextureLoader().load(allTextures["default"]);
@@ -72,7 +77,6 @@ const chairLoader = () => {
 };
 
 const modelHandler = (event) => {
-	console.log(event.target);
 	const [model, action] = event.target.dataset.value.split("-");
 	if (action === "add") {
 		model === "cushion" ? cushionLoader() : carpetLoader();
@@ -100,7 +104,7 @@ const carpetLoader = () => {
 	if (!scene.getObjectByName("carpet")) {
 		carpetMaterials.classList.add("visible");
 		geometry = new THREE.PlaneGeometry(14, 12, 20, 20);
-		texture = new THREE.TextureLoader().load(allTextures[5]);
+		texture = new THREE.TextureLoader().load(allTextures["default"]);
 		material = new THREE.MeshBasicMaterial({
 			map: texture,
 			side: THREE.DoubleSide,
@@ -131,8 +135,7 @@ const carpetUnloader = () => {
 
 //Switch Geometries
 const switchGeometry = (event) => {
-	const switchInfo = event.target.dataset.value;
-	let [model, material] = switchInfo.split(" ");
+	let [model, material] = event.target.dataset.value.split(" ");
 	let shape = group.getObjectByName(model);
 	material = parseInt(material, 10);
 	if (model === "carpet") {
@@ -230,9 +233,15 @@ const init = () => {
 		});
 	});
 
+	// chairPartInput.forEach((input) => {
+	// 	input.addEventListener("click", (event) => {
+	// 		setInputOption(event.target.closest(".option"));
+	// 	});
+	// });
+
 	chairPartInput.forEach((input) => {
 		input.addEventListener("click", (event) => {
-			setInputOption(event.target.closest(".option"));
+			setInputOption(event.target);
 		});
 	});
 
